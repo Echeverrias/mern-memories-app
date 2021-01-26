@@ -27,7 +27,6 @@ export const signIn = (formData, history) => async (dispatch) => {
 };
 
 export const signUp = (formData, history) => (dispatch) => {
-        console.log('req signUp')
         api.signUp(formData)
             .then((data) => {
                 dispatch({type: actionTypes.SIGNUP, payload: data.data});

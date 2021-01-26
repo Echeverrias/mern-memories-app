@@ -34,7 +34,6 @@ const Form = () => {
         let user_ = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY))?.user;
         setUser(user_);
         if(!user_){
-            console.log('Not auth');
             setPostData({
                 creatorName: '',
                 title: '',

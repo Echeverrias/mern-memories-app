@@ -18,14 +18,9 @@ const NavBar = () => {
     const classes = useStyles();
     
     useEffect(() => {
-        console.log('navbar useEffect');
         const token = auth?.token;
         if(token){
-            console.log(token)
             const decodedToken = decode(token);
-            console.log(decodedToken)
-            console.log(decodedToken.exp * 1000);
-            console.log(new Date().getTime());
             if(decodedToken.exp * 1000 < new Date().getTime()){
                 handleLogout()
             }
