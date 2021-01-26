@@ -4,7 +4,6 @@ import PostMessage from '../models/postMessage.js'
 // https://www.restapitutorial.com/httpstatuscodes.html
 
 export const getPosts2 = async (req, res) => {
-    console.log('getPosts2');
     try{
         const posts = await PostMessage.find();
         res.status(200).json(posts);
@@ -55,20 +54,17 @@ export const updatePost = (req, res) => {
 export const likePost = (req, res) => {
     console.log('likePost');
     const { id: _id } = req.params;
-    console.log(_id);
     if(!req.userId) return res.json({message: 'Unauthenticated'});
 
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.satus.send(`No post with id ${_id}`);
     PostMessage.findById(_id)
         .then((post) => {
-            console.log(post?.likes);
             const index = post.likes.findIndex((id) => id === String(req.userId));
             if (index === -1){
                 post.likes.push(String(req.userId));
             }else{
                 post.likes = post.likes.filter((id) => id !== String(req.userId));
             }
-            console.log(post?.likes);
             PostMessage.findByIdAndUpdate(_id, post ,{new: true})
                 .then((post) => res.status(200).json(post))
                 .catch((error) => res.status(400).json({message: error.message}));
