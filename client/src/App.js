@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Switch, Route } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 
 import NavBar from './components/NavBar/NavBar';
@@ -13,7 +13,7 @@ function App() {
   
   return (
     <div className='app'>
-      <BrowserRouter>
+      <HashRouter>
         <Container maxwidth='lg'>
           <NavBar />
           <Switch>
@@ -21,7 +21,7 @@ function App() {
             <Route path='/auth' exact component={Auth}/>
           </Switch>
         </Container>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
