@@ -21,10 +21,11 @@ export const getPosts = (req, res) => {
         .catch((error) => res.status(404).json({message: error.message}));
 }
 
-export const createPost = (req, res) => {
+export const createPost =async (req, res) => {
     console.log('createPost');
     const post = req.body;
-    const newPostMessage = new PostMessage(post);
+    if(!req.userId) return res.json({message: 'Unauthenticated'});
+    const newPostMessage = new PostMessage({...post, creator: req.userId}); // El campo creator realmente se específica en el backend 
     newPostMessage.save()
         .then((newPost) => res.status(201).json(newPost))
         .catch((error) => res.status(409).json({message: error.message}));
@@ -54,15 +55,23 @@ export const updatePost = (req, res) => {
 export const likePost = (req, res) => {
     console.log('likePost');
     const { id: _id } = req.params;
+    console.log(_id);
+    if(!req.userId) return res.json({message: 'Unauthenticated'});
 
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.satus.send(`No post with id ${_id}`);
     PostMessage.findById(_id)
         .then((post) => {
-            //post.likeCount += 1;
-            //post.save()
-            PostMessage.findByIdAndUpdate(_id, {likeCount: post.likeCount + 1} ,{new: true})
+            console.log(post?.likes);
+            const index = post.likes.findIndex((id) => id === String(req.userId));
+            if (index === -1){
+                post.likes.push(String(req.userId));
+            }else{
+                post.likes = post.likes.filter((id) => id !== String(req.userId));
+            }
+            console.log(post?.likes);
+            PostMessage.findByIdAndUpdate(_id, post ,{new: true})
                 .then((post) => res.status(200).json(post))
                 .catch((error) => res.status(400).json({message: error.message}));
         }) 
-        .catch((error) => res.status(400).json({message: error.message}));
+        .catch((error) => res.status(500).json({message: error.message}));
 }

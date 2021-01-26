@@ -5,12 +5,13 @@ const Schema = mongoose.Schema;
 const postMessageSchema = new Schema({
     title: String,
     message: String,
+    creatorName: String,
     creator: String,
     tags:[String],
     selectedFile: String,
-    likeCount: {
-        type: Number,
-        default: 0
+    likes: {
+        type: [String],
+        default: []
     },
 },{
     timestamps: true

@@ -1,47 +1,65 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
-import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment';
+
+import Likes from './Likes';
 import useStyles from './styles';
 import { deletePost, likePost } from '../../../actions/posts';
 import { setCurrentId } from '../../../actions/currentId';
+import { POST_FORM_ID } from '../../../constants/keys';
+import { LOCALSTORAGE_KEY } from '../../../constants/keys';
+import noImage from '../../../images/no-image.png';
+
 
 const Post = ({ post }) => {
 
     const dispatch = useDispatch();
+    const history = useHistory();
     const classes = useStyles();
+    const user = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY))?.user;
+    
+    const handleEdit = () => {
+        dispatch(setCurrentId(post._id));
+        window.location.hash = `${POST_FORM_ID}`;
+    }
     
     return (
         <div className="post">
             <Card className={classes.card}>
                 <CardMedia 
                     className={classes.media}
-                    image={post.selectedFile}
+                    image={post.selectedFile || noImage}
                     title={post.title}
                 />
             <div className={classes.overlay}>
                 <Typography variant="h6">
-                    {post.creator}
+                    {post.creatorName}
                 </Typography>
                 <Typography variant="body2">
                     {moment(post.createdAt).fromNow()}
                 </Typography>
             </div>
-            <div className={classes.overlay2}>
-                <Button 
-                    style={{color: 'white'}} 
-                    size='small'
-                    onClick={()=> {dispatch(setCurrentId(post._id))}}
-                >
-                    <MoreHorizIcon fontSize="default" />
-                </Button>
-            </div>
+            {
+                (user && (user._id || user.googleId) === post.creator) && (
+                <div className={classes.overlay2}>
+                    <Button 
+                        style={{color: 'white', minWidth:'auto'}} 
+                        size='small'
+                        disabled={!user || (user._id || user.googleId) !== post.creator}
+                        onClick={handleEdit}
+                    >
+                        <MoreHorizIcon fontSize="default" />
+                    </Button>
+                </div>
+                )}
             <div className={classes.details}>
                 <Typography variant="body2" color="textSecondary">
-                    {post.tags.map((tag => <div className={classes.tag}>{`#${tag}`}</div>))}
+                    {post.tags.map(((tag, i) => <div key={i} className={classes.tag}>{`#${tag} `}</div>))}
                 </Typography>
             </div>
             <Typography className={classes.title} variant="h5" gutterBottom>
@@ -53,15 +71,16 @@ const Post = ({ post }) => {
                 </Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
-                <Button size="small" color="primary" onClick={() => {dispatch(likePost(post._id))}}>
-                    <ThumbUpAltIcon fontSize="small"/>
-                    &nbsp; Like &nbsp;
-                    {post.likeCount}
+                <Button size="small" disabled={!user} color="primary" onClick={() => {dispatch(likePost(post._id))}}>
+                    <Likes likes={post.likes} user={user} />
                 </Button>
+                {
+                    (user && (user._id || user.googleId) === post.creator) && (
                 <Button size="small" color="primary" onClick={() => {dispatch(deletePost(post._id))}}>
                     <DeleteIcon fontSize="small"/>
                     &nbsp; Delete 
                 </Button>
+                )}
             </CardActions>
             </Card> 
         </div>

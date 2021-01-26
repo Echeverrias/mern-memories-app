@@ -10,4 +10,11 @@ export const postsActionTypes = {
     LIKE: 'LIKE',
 }
 
-export const actionTypes = {...currentIdActionTypes, ...postsActionTypes};
+export const authTypes = {
+    AUTH: 'AUTH',
+    LOGOUT: 'LOGOUT',
+    SIGNIN: "SIGNIN",
+    SIGNUP: "SIGNUP",
+}
+
+export const actionTypes = {...currentIdActionTypes, ...postsActionTypes, ...authTypes};
