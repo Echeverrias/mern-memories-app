@@ -13,7 +13,7 @@ const Form = () => {
     const currentId = useSelector((state) => state.currentId);
     const post = useSelector((state) => currentId? state.posts.filter((post) => post._id === currentId)[0]:null);
     const [postData, setPostData] = useState({
-        creator: '',
+        creatorName: '',
         title: '',
         message: '',
         tags: [],
@@ -41,7 +41,7 @@ const Form = () => {
         dispatch(setCurrentId(null));
         
         setPostData({
-            creator: '',
+            creatorName: '',
             title: '',
             message: '',
             tags: [],
@@ -60,12 +60,12 @@ const Form = () => {
                     {currentId? 'Editing a Memory' :  'Creating a Memory'}
                     </Typography>
                     <TextField 
-                        name="creator" 
+                        name="creatorName" 
                         variant="outlined" 
                         label="Creator" 
                         fullWidth 
-                        value={postData.creator}
-                        onChange={(e) => setPostData({...postData, creator: e.target.value})}
+                        value={postData.creatorName}
+                        onChange={(e) => setPostData({...postData, creatorName: e.target.value})}
                     />
                     <TextField 
                         name="title" 

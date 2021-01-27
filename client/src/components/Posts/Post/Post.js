@@ -24,7 +24,7 @@ const Post = ({ post }) => {
                 />
             <div className={classes.overlay}>
                 <Typography variant="h6">
-                    {post.creator}
+                    {post.creatorName}
                 </Typography>
                 <Typography variant="body2">
                     {moment(post.createdAt).fromNow()}
