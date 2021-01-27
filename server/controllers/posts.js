@@ -55,7 +55,7 @@ export const likePost = (req, res) => {
     console.log('likePost');
     const { id: _id } = req.params;
 
-    if(!mongoose.Types.ObjectId.isValid(_id)) return res.satus.send(`No post with id ${_id}`);
+    if(!mongoose.Types.ObjectId.isValid(_id)) return res.send(`No post with id ${_id}`);
     PostMessage.findById(_id)
         .then((post) => {
             //post.likeCount += 1;
