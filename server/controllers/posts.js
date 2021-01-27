@@ -56,7 +56,7 @@ export const likePost = (req, res) => {
     const { id: _id } = req.params;
     if(!req.userId) return res.json({message: 'Unauthenticated'});
 
-    if(!mongoose.Types.ObjectId.isValid(_id)) return res.satus.send(`No post with id ${_id}`);
+    if(!mongoose.Types.ObjectId.isValid(_id)) return res.send(`No post with id ${_id}`);
     PostMessage.findById(_id)
         .then((post) => {
             const index = post.likes.findIndex((id) => id === String(req.userId));
