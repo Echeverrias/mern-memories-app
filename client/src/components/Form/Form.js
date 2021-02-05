@@ -31,6 +31,7 @@ const Form = () => {
     const classes = useStyles();
 
     useEffect(() => {
+        console.log('Form', currentId)
         let user_ = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY))?.user;
         setUser(user_);
         if(!user_){

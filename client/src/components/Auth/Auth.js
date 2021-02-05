@@ -3,7 +3,7 @@ import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { GoogleLogin } from 'react-google-login';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { auth, signUp, signIn } from '../../actions/auth';
 import Input from './Input';
@@ -18,7 +18,7 @@ const initialState = {
     confirmPassword: '',
 }
 
-const Auth = () => {
+const Auth = () => { console.log('Auth location:', useLocation()); //%
     
     const [showPassword, setShowPassword] = useState(false);
     const [isSignUp, setIsSignUp] = useState(false); //%

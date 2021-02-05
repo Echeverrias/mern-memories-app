@@ -60,7 +60,17 @@ export default makeStyles((theme) => ({
   },
   logout: {
 
+  },
+  menu: {
+    listStyle: 'none',
+  },
+  menuContent: {
+    display: 'none',
+      '&:hover': {
+        display: 'block',
+      },
+  },
+  menuItem: {
+    textDecoration: 'none',
   }
-  
-  
 }));

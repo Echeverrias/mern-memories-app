@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
 
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -25,17 +25,14 @@ const Post = ({ post }) => {
     
     const handleEdit = () => {
         dispatch(setCurrentId(post._id));
-        window.location.hash = `${POST_FORM_ID}`;
+        //window.location.hash = `${POST_FORM_ID}`;
     }
-    
+
     return (
         <div className="post">
             <Card className={classes.card}>
-                <CardMedia 
-                    className={classes.media}
-                    image={post.selectedFile || noImage}
-                    title={post.title}
-                />
+               
+            <img  className={classes.image} src={post.selectedFile || noImage} alt={post.title}/>
             <div className={classes.overlay}>
                 <Typography variant="h6">
                     {post.creatorName}
@@ -59,10 +56,10 @@ const Post = ({ post }) => {
                 )}
             <div className={classes.details}>
                 <Typography variant="body2" color="textSecondary">
-                    {post.tags.map(((tag, i) => <div key={i} className={classes.tag}>{`#${tag} `}</div>))}
+                    {post.tags.map((tag => <div className={classes.tag}>{`#${tag} `}</div>))}
                 </Typography>
             </div>
-            <Typography className={classes.title} variant="h5" gutterBottom>
+            <Typography className={classes.title} variant="h2" gutterBottom>
                     {post.title}
                 </Typography>
             <CardContent>

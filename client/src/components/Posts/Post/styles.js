@@ -7,6 +7,10 @@ export default makeStyles({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     backgroundBlendMode: 'darken',
   },
+  image: {
+    height: '35vh',
+    width: 'auto,'
+  },
   border: {
     border: 'solid',
   },
@@ -45,6 +49,7 @@ export default makeStyles({
   },
   title: {
     padding: '0 16px',
+    fontSize: '1.5rem',
   },
   message: {
   },
@@ -54,10 +59,13 @@ export default makeStyles({
     justifyContent: 'space-between',
   },
   tag: {
-    cursor: 'pointer',
     display: 'inline',
-    '&:hover': {
-      color: 'black',
     },
+    tagClickeable: {
+      cursor: 'pointer',
+      display: 'inline',
+      '&:hover': {
+        color: 'black',
+      },
   },
 });

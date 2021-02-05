@@ -7,5 +7,15 @@ export default makeStyles((theme) => ({
       flexDirection: 'column-reverse',
     }
   },
+
+  capitalize: {
+    textTransform: 'capitalize'
+  },
+
+  title: {
+    background: 'white',
+    padding: '0.5rem',
+    marginTop: '4rem',
+  }
   
 }));

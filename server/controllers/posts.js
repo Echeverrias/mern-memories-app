@@ -20,6 +20,14 @@ export const getPosts = (req, res) => {
         .catch((error) => res.status(404).json({message: error.message}));
 }
 
+export const getPostsByTag = (req, res) => {
+    console.log('getPostsByTag');
+    const {tag} = req.params;
+    PostMessage.find({tags: tag.replace('memorias-', '')})
+        .then((posts) => res.status(200).json(posts))
+        .catch((error) => res.status(404).json({message: error.message}));
+}
+
 export const createPost =async (req, res) => {
     console.log('createPost');
     const post = req.body;

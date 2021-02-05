@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Memorias Madrid",
+  "name": "Memorias Madrid App",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "memories.png",
+      "src": "memorias.png",
       "type": "image/png",
       "sizes": "179x192"
     }
   ],
-  "start_url": ".",
+  "start_url": "./#",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

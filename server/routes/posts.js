@@ -1,5 +1,5 @@
 import express from 'express';
-import { getPosts, createPost, deletePost, updatePost, likePost } from '../controllers/posts.js';
+import { getPosts, createPost, deletePost, updatePost, likePost, getPostsByTag } from '../controllers/posts.js';
 import auth from '../middleware/auth.js';
 
 const router = express.Router();
@@ -7,6 +7,7 @@ const router = express.Router();
 // The router execute the middleware 
 
 router.get('/', getPosts);
+router.get('/:tag', getPostsByTag);
 router.post('/', auth, createPost);
 router.delete('/:id', auth, deletePost);
 router.patch('/:id', auth, updatePost);
